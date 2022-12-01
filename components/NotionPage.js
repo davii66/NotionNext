@@ -61,10 +61,6 @@ const Modal = dynamic(
 )
 
 const NotionPage = ({ post }) => {
-  if (!post || !post.blockMap) {
-    return <>{post?.summary || ''}</>
-  }
-
   const zoom = isBrowser() && mediumZoom({
     container: '.notion-viewport',
     background: 'rgba(0, 0, 0, 0.2)',
@@ -103,8 +99,11 @@ const NotionPage = ({ post }) => {
     }, 800)
   }, [])
 
+  if (!post || !post.blockMap) {
+    return <>{post?.summary || ''}</>
+  }
+
   return <div id='container' className='max-w-5xl overflow-x-visible mx-auto'>
-    <PrismMac />
     <NotionRenderer
       recordMap={post.blockMap}
       mapPageUrl={mapPageUrl}
@@ -117,6 +116,9 @@ const NotionPage = ({ post }) => {
         nextImage: Image,
         nextLink: Link
       }} />
+
+      <PrismMac />
+
   </div>
 }
 
